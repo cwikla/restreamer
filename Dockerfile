@@ -1,11 +1,11 @@
-FROM node:5.9.0-slim
+FROM node:6.3.1
 
 MAINTAINER datarhei <info@datarhei.org>
 
-ENV FFMPEG_VERSION=2.8.6 \
+ENV FFMPEG_VERSION=3.2.2 \
     YASM_VERSION=1.3.0 \
     LAME_VERSION=3_99_5 \
-    NGINX_VERSION=1.9.9 \
+    NGINX_VERSION=1.9.11 \
     NGINX_RTMP_VERSION=1.1.7.10 \
 
     SRC="/usr/local"
@@ -67,7 +67,7 @@ RUN apt-get update && \
     curl -LOks "https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz" && \
     tar xzvf "ffmpeg-${FFMPEG_VERSION}.tar.gz" && \
     cd "ffmpeg-${FFMPEG_VERSION}" && \
-    curl -Lks "https://github.com/FFmpeg/FFmpeg/commit/1c7e2cf9d33968375ee4025d2279c937e147dae2.patch" | patch -p1 && \
+    #curl -Lks "https://github.com/FFmpeg/FFmpeg/commit/1c7e2cf9d33968375ee4025d2279c937e147dae2.patch" | patch -p1 && \
     ./configure \
         --prefix="${SRC}" \
         --bindir="${SRC}/bin" \
@@ -125,7 +125,7 @@ RUN npm install -g bower grunt grunt-cli nodemon public-ip eslint && \
     bower cache clean --allow-root
 
 ENV RS_USERNAME admin
-ENV RS_PASSWORD datarhei
+ENV RS_PASSWORD admin
 
 EXPOSE 8080
 VOLUME ["/restreamer/db"]
